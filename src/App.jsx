@@ -3,7 +3,8 @@ import Login from "./routes/Login";
 import Home from "./routes/Home";
 import Navbar from "./components/Navbar";
 import RequiereAuth from "./components/RequiereAuth";
-import Register from "./components/Register";
+import Register from "./routes/Register";
+
 import { useContext } from "react";
 import { Usercontext } from "./context/UserProvider";
 

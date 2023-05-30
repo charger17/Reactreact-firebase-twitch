@@ -8,29 +8,30 @@ import { formValidate } from "../utils/formValidate";
 import FormError from "../components/FormError";
 import FormInput from "../components/FormInput";
 
-const Login = () => {
-  const { loginUser } = useContext(Usercontext);
+const Register = () => {
+  const { registerUser } = useContext(Usercontext);
   const navigate = useNavigate();
 
-  const { required, patternEmail, minLength, validateTrim } =
+  const { required, patternEmail, minLength, validateTrim, validateEquals } =
     formValidate();
-
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
     setError,
   } = useForm({
     defaultValues: {
       email: "test@test.com",
       password: "123123",
+      repassword: "123123",
     },
   });
 
   const onSubmmit = async ({ email, password }) => {
     try {
-      await loginUser(email, password);
+      await registerUser(email, password);
       navigate("/");
     } catch (error) {
       setError("firebase", {
@@ -41,8 +42,10 @@ const Login = () => {
 
   return (
     <>
-      <h1>Login</h1>
+      <h1>Register</h1>
+
       <FormError error={errors.firebase} />
+
       <form onSubmit={handleSubmit(onSubmmit)}>
         <FormInput
           type="mail"
@@ -66,10 +69,21 @@ const Login = () => {
         >
           <FormError error={errors.password} />
         </FormInput>
-        <button type="submit">Login</button>
+
+        <FormInput
+          type="password"
+          placeholder="Ingrese Contraseña"
+          {...register("repassword", {
+            validate: validateEquals(getValues),
+          })}
+        >
+          <FormError error={errors.repassword} />
+        </FormInput>
+
+        <button type="submit">Register</button>
       </form>
     </>
   );
 };
 
-export default Login;
+export default Register;
