@@ -10,27 +10,30 @@ import FormInput from "../components/FormInput";
 import Title from "../components/Title";
 import Button from "../components/Button";
 
-const Login = () => {
-  const { loginUser } = useContext(Usercontext);
+const Register = () => {
+  const { registerUser } = useContext(Usercontext);
   const navigate = useNavigate();
 
-  const { required, patternEmail, minLength, validateTrim } = formValidate();
+  const { required, patternEmail, minLength, validateTrim, validateEquals } =
+    formValidate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
     setError,
   } = useForm({
     defaultValues: {
       email: "test@test.com",
       password: "123123",
+      repassword: "123123",
     },
   });
 
   const onSubmmit = async ({ email, password }) => {
     try {
-      await loginUser(email, password);
+      await registerUser(email, password);
       navigate("/");
     } catch (error) {
       const { code, message } = erroresFirebase(error.code);
@@ -42,8 +45,9 @@ const Login = () => {
 
   return (
     <>
-      <Title text="Login" />
+      <Title text="UserRegister" />
       <FormError error={errors.firebase} />
+
       <form onSubmit={handleSubmit(onSubmmit)}>
         <FormInput
           type="mail"
@@ -71,10 +75,23 @@ const Login = () => {
         >
           <FormError error={errors.password} />
         </FormInput>
-        <Button text="Login" type="submit" />
+
+        <FormInput
+          type="password"
+          placeholder="Ingrese Contraseña"
+          {...register("repassword", {
+            validate: validateEquals(getValues("password")),
+          })}
+          label="Repite tu contraseña"
+          error={errors.repassword}
+        >
+          <FormError error={errors.repassword} />
+        </FormInput>
+
+        <Button text="Register" type="submit" />
       </form>
     </>
   );
 };
 
-export default Login;
+export default Register;
