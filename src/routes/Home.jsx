@@ -1,10 +1,9 @@
-import ExampleRef from "../components/ExampleRef";
+import Title from "../components/Title";
 
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
-      <ExampleRef/>
+      <Title text="Home" />
     </>
   );
 };
