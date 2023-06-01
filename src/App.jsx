@@ -7,6 +7,7 @@ import Register from "./routes/Register";
 
 import { useContext } from "react";
 import { Usercontext } from "./context/UserProvider";
+import LayoutContainerForm from "./components/LayoutContainerForm";
 
 const App = () => {
 
@@ -29,8 +30,10 @@ const App = () => {
             </RequiereAuth>
           }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<LayoutContainerForm />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
       </Routes>
     </>
   );
