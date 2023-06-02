@@ -6,8 +6,8 @@ const FormInput = forwardRef(
     ref
   ) => {
     const errorClassLabel = error
-      ? "block mb-2 text-sm font-medium text-red-700 dark:text-red-500"
-      : "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
+      ? "block m-2 text-sm font-medium text-red-700 dark:text-red-500"
+      : "block m-2 text-sm font-medium text-gray-900 dark:text-white";
 
     const errorClassInput = error
     ? "bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
